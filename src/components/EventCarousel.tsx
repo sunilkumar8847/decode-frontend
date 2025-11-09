@@ -94,7 +94,7 @@ const EventCarousel = () => {
     <div className="max-w-7xl mx-auto px-16">
       <Slider {...settings}>
         {events.map((item, idx) => (
-          <div key={idx} className="px-4 h-[440px]">
+          <div key={idx} className="px-4 h-[440px] w-[200px]">
             <div className="bg-[#001525] rounded-2xl overflow-hidden hover:border-[#00B4D8] transition-all h-full border border-gray-800">
               <div className="relative h-48">
                 <img 
