@@ -30,6 +30,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  React.useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -81,19 +85,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[rgba(0,21,37,0.95)] z-50 flex items-center justify-center p-4">
-      <div className="bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-lg p-8 max-w-md w-full relative backdrop-blur-sm">
-        <button 
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-[#001525] border border-[#00B4D8]/30 rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
+        <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 hover:bg-[rgba(0,180,216,0.2)] rounded-full transition-all text-[#00B4D8]"
+          className="absolute top-4 right-4 p-2 hover:bg-[#00B4D8]/20 rounded-full transition-all text-[#00B4D8]"
         >
           <X size={24} />
         </button>
 
-        <h2 className="text-3xl font-bold mb-6">{mode === 'register' ? 'Secure Your Spot' : 'Welcome Back'}</h2>
+        <h2 className="text-2xl font-bold mb-2 text-white">{mode === 'register' ? 'Secure Your Spot' : 'Welcome Back'}</h2>
+        <p className="text-gray-400 text-sm mb-6">{mode === 'register' ? 'Join the DECODE revolution' : 'Sign in to your account'}</p>
 
         {message && (
-          <div className={`mb-4 p-3 rounded-lg ${message.includes('successful') || message.includes('sent') ? 'bg-green-900 text-green-200' : 'bg-red-900 text-red-200'}`}>
+          <div className={`mb-4 p-3 rounded-lg text-sm ${message.includes('successful') || message.includes('sent') ? 'bg-green-900/30 text-green-300 border border-green-500/30' : 'bg-red-900/30 text-red-300 border border-red-500/30'}`}>
             {message}
           </div>
         )}
@@ -102,72 +107,72 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === 'register' && (
               <>
-                <div className="space-y-1 mb-4">
-                  <label className="text-sm text-[#00B4D8]">Full Name</label>
+                <div>
+                  <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">Full Name</label>
                   <input
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder="John Doe"
                     value={formData.firstname}
                     onChange={(e) => setFormData({...formData, firstname: e.target.value})}
-                    className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                    className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500"
                     required
                   />
                 </div>
-                <div className="space-y-1 mb-4">
-                  <label className="text-sm text-[#00B4D8]">Last Name</label>
+                <div>
+                  <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">Last Name</label>
                   <input
                     type="text"
-                    placeholder="Enter your last name"
+                    placeholder="Smith"
                     value={formData.lastname}
                     onChange={(e) => setFormData({...formData, lastname: e.target.value})}
-                    className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                    className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500"
                     required
                   />
                 </div>
-                <div className="space-y-1 mb-4">
-                  <label className="text-sm text-[#00B4D8]">University / Company</label>
+                <div>
+                  <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">University / Company</label>
                   <input
                     type="text"
                     placeholder="Your affiliation"
                     value={formData.organization}
                     onChange={(e) => setFormData({...formData, organization: e.target.value})}
-                    className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                    className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500"
                     required
                   />
                 </div>
-                <div className="space-y-1 mb-4">
-                  <label className="text-sm text-[#00B4D8]">Role</label>
+                <div>
+                  <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">Role</label>
                   <input
                     type="text"
                     placeholder="Your role or title"
                     value={formData.role}
                     onChange={(e) => setFormData({...formData, role: e.target.value})}
-                    className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                    className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500"
                     required
                   />
                 </div>
               </>
             )}
-            <div className="space-y-1 mb-4">
-              <label className="text-sm text-[#00B4D8]">Email Address</label>
+            <div>
+              <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">Email Address</label>
               <input
                 type="email"
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500"
                 required
               />
             </div>
-            <button 
+            <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#00B4D8] text-white font-medium rounded-md hover:bg-[#0096b4] transition-all disabled:opacity-50 mt-6"
+              className="w-full py-2.5 bg-[#00B4D8] text-black font-semibold rounded-lg hover:bg-[#0096b4] transition-all disabled:opacity-50 mt-6"
             >
               {loading ? 'Sending...' : (mode === 'register' ? 'Register Now' : 'Login')}
             </button>
             <div className="text-center mt-4">
-              <button 
+              <button
                 type="button"
                 onClick={() => setMode(mode === 'register' ? 'login' : 'register')}
                 className="text-[#00B4D8] text-sm hover:text-white transition-all"
@@ -176,7 +181,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
               </button>
             </div>
             {mode === 'register' && (
-              <p className="text-xs text-gray-400 text-center mt-4">
+              <p className="text-xs text-gray-500 text-center mt-4">
                 By registering, you agree to our Terms of Service and Privacy Policy
               </p>
             )}
@@ -184,28 +189,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
             <div className="text-center mb-6">
-              <div className="text-[#00B4D8] text-sm mb-2">Verification Required</div>
-              <p className="text-gray-400">Enter the OTP sent to {formData.email}</p>
+              <div className="text-[#00B4D8] text-xs font-semibold uppercase tracking-wide mb-2">Verification Required</div>
+              <p className="text-gray-400 text-sm">Enter the OTP sent to <span className="text-[#00B4D8]">{formData.email}</span></p>
             </div>
-            <div className="space-y-1">
-              <label className="text-sm text-[#00B4D8]">One-Time Password</label>
+            <div>
+              <label className="text-xs font-semibold text-gray-300 uppercase tracking-wide">One-Time Password</label>
               <input
                 type="text"
-                placeholder="Enter your OTP"
+                placeholder="000000"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full px-4 py-3 bg-[rgba(0,180,216,0.1)] border border-[#00B4D8] rounded-md focus:outline-none focus:bg-[rgba(0,180,216,0.2)] transition-all text-white placeholder-gray-400"
+                className="w-full mt-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#00B4D8] focus:bg-white/10 transition-all text-white placeholder-gray-500 text-center tracking-widest"
                 required
               />
             </div>
-            <button 
+            <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#00B4D8] text-white font-medium rounded-md hover:bg-[#0096b4] transition-all disabled:opacity-50 mt-6"
+              className="w-full py-2.5 bg-[#00B4D8] text-black font-semibold rounded-lg hover:bg-[#0096b4] transition-all disabled:opacity-50 mt-6"
             >
               {loading ? 'Verifying...' : 'Verify OTP'}
             </button>
-            <button 
+            <button
               type="button"
               onClick={() => setOtpSent(false)}
               className="w-full py-2 text-[#00B4D8] hover:text-white transition-all text-sm"
