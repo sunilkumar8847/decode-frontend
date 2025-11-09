@@ -91,30 +91,36 @@ const EventCarousel = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-16">
-      <Slider {...settings}>
-        {events.map((item, idx) => (
-          <div key={idx} className="px-4 h-[440px] w-[200px]">
-            <div className="bg-[#001525] rounded-2xl overflow-hidden hover:border-[#00B4D8] transition-all h-full border border-gray-800">
-              <div className="relative h-48">
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 left-4 bg-[#2d2b2b] bg-opacity-90 p-1 rounded-lg text-white">
-                  {item.icon}
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-4 text-white">{item.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
-              </div>
+    <div className="max-w-7xl mx-auto px-4 md:px-16">
+  <Slider {...settings}>
+    {events.map((item, idx) => (
+      <div key={idx} className="px-4">
+        <div className="bg-[#001525] rounded-2xl overflow-hidden hover:border-[#00B4D8] transition-all h-full border border-gray-800 flex flex-col">
+          
+          {/* image: fixed-ish height on md+, smaller on small screens */}
+          <div className="relative w-full md:h-48 h-40 flex-shrink-0">
+            <img 
+              src={item.image} 
+              alt={item.title} 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute top-4 left-4 bg-[#2d2b2b] bg-opacity-90 p-1 rounded-lg text-white">
+              {item.icon}
             </div>
           </div>
-        ))}
-      </Slider>
-    </div>
+
+          {/* content: grows to fill remaining space and scrolls if too long */}
+          <div className="p-6 flex-1 min-h-0">
+            <h3 className="text-2xl font-bold mb-4 text-white">{item.title}</h3>
+            <p className="text-gray-300 leading-relaxed overflow-auto">
+              {item.desc}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </Slider>
+</div>
   );
 };
 
